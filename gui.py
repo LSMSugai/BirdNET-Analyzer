@@ -1615,9 +1615,7 @@ if __name__ == "__main__":
             )
             ax.set_xlabel(loc.localize("review-tab-regression-plot-x-label"))
 
-            # x_vals = [float(os.path.basename(fl).split("_", 1)[0]) for fl in positives + negatives]
             x_vals = []
-            # y_val = [1] * len(positives) + [0] * len(negatives)
             y_val = []
 
             for fl in positives + negatives:
@@ -1652,13 +1650,14 @@ if __name__ == "__main__":
                     ax.hlines(target_p, 0, threshold, color=p_color, linestyle="--", linewidth=0.5)
 
                 ax.plot(Xs, Ys, color="red")
-
-                ax.scatter(x_vals, y_val, 2)
                 ax.scatter(thresholds, target_ps, color=p_colors, marker="x")
 
                 box = ax.get_position()
                 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
                 ax.legend(loc="center left", bbox_to_anchor=(1, 0.5))
+            
+            if len(y_val) > 0:
+                ax.scatter(x_vals, y_val, 2)
 
             return gr.Plot(value=f, visible=bool(y_val))
 
